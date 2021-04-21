@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
 
-  const [tasks, setTasks] = useState([
-    'Pay bills',
-    'Study react hooks'
-  ]);
+  const [tasks, setTasks] = useState([]);
 
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('');
+
+  // ngOnInit
+  useEffect(() => {
+    const storageTasks = localStorage.getItem('tasks');
+    if(storageTasks) {
+      setTasks(JSON.parse(storageTasks))
+    }
+  }, []) // <= [] ngOnInit
+
+  // ngOnChange
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]) // ngOnChange tasks
 
   function handleAdd() {
     setTasks([...tasks, input]);
