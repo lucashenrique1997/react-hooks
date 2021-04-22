@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import {useState, useEffect, useMemo} from 'react'
 
 function App() {
 
@@ -19,6 +19,8 @@ function App() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]) // ngOnChange tasks
 
+  const totalTasks = useMemo(() => tasks.length, [tasks]);
+
   function handleAdd() {
     setTasks([...tasks, input]);
     setInput('');
@@ -31,6 +33,10 @@ function App() {
           <li key={task}>{task}</li>
         ))}
       </ul>
+
+      <br/>
+      <strong>Você tem {totalTasks} tarefas!</strong>
+      <br/>
 
       <input type="text" value={input} onChange={e => setInput(e.target.value)}/>
       <button type="button" onClick={handleAdd}>Add task</button>
