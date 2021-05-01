@@ -1,4 +1,4 @@
-import {useState, useEffect, useMemo} from 'react'
+import {useState, useEffect, useMemo, useCallback} from 'react'
 
 function App() {
 
@@ -21,10 +21,10 @@ function App() {
 
   const totalTasks = useMemo(() => tasks.length, [tasks]);
 
-  function handleAdd() {
+  const handleAdd = useCallback(() => {
     setTasks([...tasks, input]);
     setInput('');
-  }
+  }, [input, tasks])
 
   return (
     <div>
